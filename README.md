@@ -80,14 +80,14 @@ export class GhostContentApiConfigService implements GhostContentApiOptionsFacto
 Importing inside services
 ```typescript
 import { Injectable } from '@nestjs/common';
-import { GhostContentApiService, PageResponse, PostResponse } from '@mobizerg/nest-ghost-content-api';
+import { GhostContentApiService, PostResponse } from '@mobizerg/nest-ghost-content-api';
 
 @Injectable()
 export class BlogService {
     
       constructor(private readonly ghostContentApiService: GhostContentApiService) {}
                   
-      async findPosts(): Promise<PageResponse<PostResponse>> {
+      async findPosts(): Promise<PostResponse> {
           return await this.ghostContentApiService.findPosts({
              filter: 'tag:demo',
              page: query.page, 
