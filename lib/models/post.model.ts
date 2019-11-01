@@ -2,7 +2,7 @@ import { Type } from 'class-transformer';
 import { Tag } from './tag.model';
 import { Author } from './author.model';
 import { Visibility } from '../enums';
-import { seoDescription, seoTitle } from '../ghost-content-api.helper';
+import { extractWords, seoDescription, seoTitle } from '../ghost-content-api.helper';
 
 // tslint:disable:variable-name
 export class Post {
@@ -49,11 +49,43 @@ export class Post {
     return this.feature_image != null;
   }
 
-  seoTitle(): string {
-    return (this.meta_title && this.meta_title.length > 0) ? this.meta_title : seoTitle(this.title);
+  metaTitle(): string {
+    return this.meta_title ? this.meta_title : seoTitle(this.title);
   }
 
-  seoDescription(): string {
-    return (this.meta_description && this.meta_title.length > 0) ? this.meta_description : seoDescription(this.excerpt);
+  metaDescription(): string {
+    return this.meta_description ? this.meta_description : seoDescription(this.excerpt);
+  }
+
+  ogType(): string {
+    return 'article';
+  }
+
+  ogTitle(): string {
+    return this.og_title ? this.og_title : seoTitle(this.title);
+  }
+
+  ogDescription(): string {
+    return this.og_description ? this.og_description : seoDescription(this.excerpt);
+  }
+
+  ogImage(defaultImageUrl: string): string {
+    return this.og_image ? this.og_image : defaultImageUrl;
+  }
+
+  twitterCard(): string {
+    return 'summary_large_image';
+  }
+
+  twitterTitle(): string {
+    return this.twitter_title ? this.twitter_title : seoTitle(this.title);
+  }
+
+  twitterDescription(): string {
+    return this.twitter_description ? this.twitter_description : seoDescription(this.excerpt);
+  }
+
+  twitterImage(defaultImageUrl: string): string {
+    return this.twitter_image ? this.twitter_image : defaultImageUrl;
   }
 }
