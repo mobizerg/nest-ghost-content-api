@@ -2,6 +2,7 @@ import { Type } from 'class-transformer';
 import { Tag } from './tag.model';
 import { Author } from './author.model';
 import { Visibility } from '../enums';
+import { seoDescription, seoTitle } from '../ghost-content-api.helper';
 
 // tslint:disable:variable-name
 export class Post {
@@ -46,5 +47,13 @@ export class Post {
 
   hasFeatureImage(): boolean {
     return this.feature_image != null;
+  }
+
+  getSeoTitle(): string {
+    return (this.meta_title && this.meta_title.length > 0) ? this.meta_title : seoTitle(this.title);
+  }
+
+  getSeoDescription(): string {
+    return (this.meta_description && this.meta_title.length > 0) ? this.meta_description : seoDescription(this.excerpt);
   }
 }
