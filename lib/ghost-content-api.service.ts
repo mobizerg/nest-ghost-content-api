@@ -27,7 +27,7 @@ export class GhostContentApiService {
     });
   }
 
-  async findPosts(params?: FindManyOptions<Post, PostData>): Promise<PostResponse> {
+  async findPosts(params?: FindManyOptions<Post, PostData>): Promise<Post[] | PostResponse> {
     if (params) params = plainToClassFromExist(new FindManyOptions<Post, PostData>(), params);
     const response = await this.contentApi.posts.browse(params);
     return plainToClass(PostResponse, response);
@@ -45,7 +45,7 @@ export class GhostContentApiService {
     return plainToClass(Post, response);
   }
 
-  async findPages(params?: FindManyOptions<Post, PostData>): Promise<PostResponse> {
+  async findPages(params?: FindManyOptions<Post, PostData>): Promise<Post[] | PostResponse> {
     if (params) params = plainToClassFromExist(new FindManyOptions<Post, PostData>(), params);
     const response = await this.contentApi.pages.browse(params);
     return plainToClass(PostResponse, response);
@@ -63,7 +63,7 @@ export class GhostContentApiService {
     return plainToClass(Post, response);
   }
 
-  async findAuthors(params?: FindManyOptions<Author, AuthorData>): Promise<AuthorResponse> {
+  async findAuthors(params?: FindManyOptions<Author, AuthorData>): Promise<Author[] | AuthorResponse> {
     if (params) params = plainToClassFromExist(new FindManyOptions<Author, AuthorData>(), params);
     const response = await this.contentApi.authors.browse(params);
     return plainToClass(AuthorResponse, response);
@@ -81,7 +81,7 @@ export class GhostContentApiService {
     return plainToClass(Author, response);
   }
 
-  async findTags(params?: FindManyOptions<Tag, TagData>): Promise<TagResponse> {
+  async findTags(params?: FindManyOptions<Tag, TagData>): Promise<Tag[] | TagResponse> {
     if (params) params = plainToClassFromExist(new FindManyOptions<Tag, TagData>(), params);
     const response = await this.contentApi.tags.browse(params);
     return plainToClass(TagResponse, response);
