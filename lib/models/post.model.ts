@@ -49,11 +49,11 @@ export class Post {
     return this.feature_image != null;
   }
 
-  getSeoTitle(): string {
+  seoTitle(): string {
     return (this.meta_title && this.meta_title.length > 0) ? this.meta_title : seoTitle(this.title);
   }
 
-  getSeoDescription(): string {
+  seoDescription(): string {
     return (this.meta_description && this.meta_title.length > 0) ? this.meta_description : seoDescription(this.excerpt);
   }
 }
