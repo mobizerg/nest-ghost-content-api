@@ -61,6 +61,11 @@ export class Post {
     return formatDistanceStrict(new Date(), this.published_at, { addSuffix: true });
   }
 
+  @Expose({ toPlainOnly: true })
+  readTime(): string {
+    return `${this.reading_time} min read`;
+  }
+
   hasFeatureImage(): boolean {
     return this.feature_image != null;
   }
