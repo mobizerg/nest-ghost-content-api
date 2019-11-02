@@ -1,8 +1,9 @@
 import { Expose, Type } from 'class-transformer';
+import { format, formatDistanceStrict } from 'date-fns';
 import { Tag } from './tag.model';
 import { Author } from './author.model';
 import { Visibility } from '../enums';
-import { extractWords, seoDescription, seoTitle } from '../ghost-content-api.helper';
+import { seoDescription, seoTitle } from '../ghost-content-api.helper';
 
 // tslint:disable:variable-name
 export class Post {
@@ -45,8 +46,31 @@ export class Post {
   primary_author?: Author;
   primary_tag?: Tag;
 
+  @Expose({ toPlainOnly: true })
+  blogUrl(): string {
+    return `/blog/${this.slug}/`;
+  }
+
+  @Expose({ toPlainOnly: true })
+  publishedDate(): string {
+    return format(this.published_at, 'MMM dd, yyyy');
+  }
+
+  @Expose({ toPlainOnly: true })
+  publishedBefore(): string {
+    return formatDistanceStrict(new Date(), this.published_at, { addSuffix: true });
+  }
+
   hasFeatureImage(): boolean {
     return this.feature_image != null;
+  }
+
+  isPublic(): boolean {
+    return this.visibility === Visibility.PUBLIC;
+  }
+
+  isPrivate(): boolean {
+    return this.visibility === Visibility.PRIVATE;
   }
 
   metaTitle(): string {
@@ -89,8 +113,7 @@ export class Post {
     return this.twitter_image ? this.twitter_image : defaultImageUrl;
   }
 
-  @Expose({ toPlainOnly: true })
-  blogUrl(): string {
-    return `/blog/${this.slug}/`;
+  publishedDateAs(pattern: string): string {
+    return format(this.published_at, pattern);
   }
 }
