@@ -1,7 +1,7 @@
 {
   "name": "@mobizerg/nest-ghost-content-api",
   "description": "Ghost Content Api integration module for Nest.js framework",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "author": "Mobizerg",
   "license": "MIT",
   "main": "index.js",

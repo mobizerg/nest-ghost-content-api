@@ -90,7 +90,7 @@ export class Post {
   }
 
   @Expose({ toPlainOnly: true })
-  blogUrl(prefix: string = '/blog'): string {
-    return prefix + `/${this.slug}/`;
+  blogUrl(): string {
+    return `/blog/${this.slug}/`;
   }
 }
