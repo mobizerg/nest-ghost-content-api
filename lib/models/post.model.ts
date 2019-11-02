@@ -1,4 +1,4 @@
-import { Type } from 'class-transformer';
+import { Expose, Type } from 'class-transformer';
 import { Tag } from './tag.model';
 import { Author } from './author.model';
 import { Visibility } from '../enums';
@@ -87,5 +87,10 @@ export class Post {
 
   twitterImage(defaultImageUrl: string): string {
     return this.twitter_image ? this.twitter_image : defaultImageUrl;
+  }
+
+  @Expose({ toPlainOnly: true })
+  blogUrl(prefix: string = '/blog'): string {
+    return prefix + `/${this.slug}/`;
   }
 }
