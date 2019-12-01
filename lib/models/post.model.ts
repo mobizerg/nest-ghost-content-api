@@ -1,4 +1,4 @@
-import { Expose, Type } from 'class-transformer';
+import { Type } from 'class-transformer';
 import { format, formatDistanceStrict } from 'date-fns';
 import { Tag } from './tag.model';
 import { Author } from './author.model';
@@ -46,24 +46,20 @@ export class Post {
   primary_author?: Author;
   primary_tag?: Tag;
 
-  @Expose({ toPlainOnly: true })
-  blogUrl(): string {
-    return `/blog/${this.slug}/`;
+  postUrl(slug: string = 'blog'): string {
+    return `/${slug}/${this.slug}/`;
   }
 
-  @Expose({ toPlainOnly: true })
-  publishedDate(): string {
-    return format(this.published_at, 'MMM dd, yyyy');
+  publishedAt(pattern: string = 'MMM dd, yyyy'): string {
+    return format(this.published_at, pattern);
   }
 
-  @Expose({ toPlainOnly: true })
   publishedBefore(): string {
     return formatDistanceStrict(new Date(), this.published_at, { addSuffix: true });
   }
 
-  @Expose({ toPlainOnly: true })
-  readTime(): string {
-    return `${this.reading_time} min read`;
+  readTime(suffixText: string = 'min read'): string {
+    return `${this.reading_time} ${suffixText}`;
   }
 
   hasFeatureImage(): boolean {
@@ -116,9 +112,5 @@ export class Post {
 
   twitterImage(defaultImageUrl: string): string {
     return this.twitter_image ? this.twitter_image : defaultImageUrl;
-  }
-
-  publishedDateAs(pattern: string): string {
-    return format(this.published_at, pattern);
   }
 }
