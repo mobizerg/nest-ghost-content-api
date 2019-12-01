@@ -46,8 +46,8 @@ export class Post {
   primary_author?: Author;
   primary_tag?: Tag;
 
-  postUrl(slug: string = 'blog'): string {
-    return `/${slug}/${this.slug}/`;
+  postUrl(path: string = 'blog'): string {
+    return `/${path}/${this.slug}/`;
   }
 
   publishedAt(pattern: string = 'MMM dd, yyyy'): string {
@@ -59,7 +59,7 @@ export class Post {
   }
 
   readTime(suffixText: string = 'min read'): string {
-    return `${this.reading_time} ${suffixText}`;
+    return `${this.reading_time != 0 ? this.reading_time : 1 } ${suffixText}`;
   }
 
   hasFeatureImage(): boolean {
